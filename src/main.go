@@ -31,7 +31,8 @@ func main() {
 
 func runCmds(projectName string) {
 	os.Mkdir(projectName, 0755)
-	os.Create(projectName  + "/" + "main.go")
+	os.Mkdir(projectName + "/src", 0755)
+	os.Create(projectName  + "/src/" + "main.go")
 
 	cmd := exec.Command("go", "mod", "init", "github.com/" + projectName)
 	cmd.Dir = "./" + projectName
