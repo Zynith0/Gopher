@@ -16,8 +16,8 @@ func main() {
     if len(flag.Args()) < 1 {
         fmt.Println("The current commands are:")
         fmt.Println("init       initializes a go project")
-        fmt.Println("run        runs the project (only works with src)")
-        fmt.Println("build      builds the project (only works with src)")
+        fmt.Println("run        runs the project")
+        fmt.Println("build      builds the project")
     }
 
     if flag.Arg(0) == "init" {
@@ -67,7 +67,7 @@ func runCmds(projectName string) {
 	if err != nil {
 		fmt.Println("skill issue", err)
 	}
-	f.WriteString("main")
+	f.WriteString("main\n*.exe")
 }
 
 func run() {
