@@ -41,12 +41,12 @@ func main() {
 
 func runCmds(projectName string) {
     os.Mkdir(projectName, 0755)
-    os.Mkdir(projectName + "/src", 0755)
-	mainGo, err := os.Create(projectName  + "/src/" + "main.go")
+    os.Mkdir(projectName + "/cmd", 0755)
+	mainGo, err := os.Create(projectName  + "/cmd/" + "main.go")
 
 	mainGo.WriteString("package main\n\nimport (\n	" + `"` + "fmt" + `"` + "\n)\n\nfunc main() {\n	fmt.Println(" + `"` + "Hello, World!" + `"` + ")\n}")
 
-    cmd := exec.Command("go", "mod", "init", "github.com/Zynith0" + projectName)
+    cmd := exec.Command("go", "mod", "init", "github.com/" + projectName)
     cmd.Dir = "./" + projectName
     output, err := cmd.Output()
     if err != nil {
@@ -76,7 +76,7 @@ func run() {
 		fmt.Println("skill issue")
 	}
 
-	cmd := exec.Command("go", "run", "src/main.go")
+	cmd := exec.Command("go", "run", "cmd/main.go")
 	if err != nil {
 		fmt.Println("skill issue", err)
 	}
@@ -95,7 +95,7 @@ func build() {
 		fmt.Println("skill issue")
 	}
 
-	cmd := exec.Command("go", "build", "src/main.go")
+	cmd := exec.Command("go", "build", "cmd/main.go")
 	if err != nil {
 		fmt.Println("skill issue", err)
 	}
