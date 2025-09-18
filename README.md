@@ -2,6 +2,6 @@
 A cli tool to add missing features from go
 
 # Commands
-init:       initializes a go project  
-run:        runs the project  
-build:      builds the project   
+init [project name]: initializes a project with the name being [project name]  
+run: runs cmd/main.go  
+build: builds cmd/main.go  

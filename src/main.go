@@ -13,11 +13,14 @@ func main() {
 
     flag.Parse()
 
+	// Print a help message if the user doesn't input any flags
     if len(flag.Args()) < 1 {
         fmt.Println("The current commands are:")
         fmt.Println("init       initializes a go project")
-        fmt.Println("run        runs the project (only works with src)")
-        fmt.Println("build      builds the project (only works with src)")
+		// TODO: actually make init-src a thing
+        // fmt.Println("init-src   initializes a go project using src instead of cmd")
+        fmt.Println("run        runs the project")
+        fmt.Println("build      builds the project")
     }
 
     if flag.Arg(0) == "init" {
@@ -26,20 +29,16 @@ func main() {
         } else {
             var projectName = flag.Arg(1)
 
-            runCmds(projectName)
+            initProject(projectName)
         }
-    }
-
-	if flag.Arg(0) == "run" {
+    } else if flag.Arg(0) == "run" {
 		run()
-	}
-
-	if flag.Arg(0) == "build" {
+	} else if flag.Arg(0) == "build" {
 		build()
 	}
 }
 
-func runCmds(projectName string) {
+func initProject(projectName string) {
     os.Mkdir(projectName, 0755)
     os.Mkdir(projectName + "/cmd", 0755)
 	mainGo, err := os.Create(projectName  + "/cmd/" + "main.go")
@@ -67,7 +66,7 @@ func runCmds(projectName string) {
 	if err != nil {
 		fmt.Println("skill issue", err)
 	}
-	f.WriteString("main")
+	f.WriteString("main\n*.exe")
 }
 
 func run() {
