@@ -1,10 +1,11 @@
 package main
 
 import (
-    "flag"
-    "fmt"
-    "os"
-    "os/exec"
+	"flag"
+	"fmt"
+	"os"
+	"os/exec"
+	"strings"
 )
 
 func main() {
@@ -45,9 +46,16 @@ func initProject(projectName string) {
 
 	mainGo.WriteString("package main\n\nimport (\n	" + `"` + "fmt" + `"` + "\n)\n\nfunc main() {\n	fmt.Println(" + `"` + "Hello, World!" + `"` + ")\n}")
 
-    cmd := exec.Command("go", "mod", "init", "github.com/" + projectName)
+	userName, err := exec.Command("git", "config", "--global", "user.name").Output()
+	if err != nil {
+		fmt.Println("skill issue", err)
+	}
+
+	userNameOut := string(userName)
+
+    cmd := exec.Command("go", "mod", "init", "github.com/" + strings.Trim(userNameOut, "\n") + "/" +  projectName)
     cmd.Dir = "./" + projectName
-    output, err := cmd.Output()
+	output, err := cmd.Output()
     if err != nil {
         fmt.Println("skill issue", err)
     }
